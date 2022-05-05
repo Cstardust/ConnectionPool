@@ -1,3 +1,6 @@
+#ifndef _CONNECTION_H_
+#define _CONNECTION_H_
+
 #include <mysql.h>
 #include <string>
 #include<iostream>
@@ -5,7 +8,7 @@
 
 using namespace std;
 
-// 数据库操作类。
+// 数据库操作类。负责与MySQL数据库进行交互。如连接Server，以及操作数据库文件。
 //  Connection封装了MySQL第三方库提供的原生接口.
 class Connection
 {
@@ -31,3 +34,5 @@ private:
 
 //  mysql.h 里都是函数和结构体、变量的声明
 //  函数的实现我们见不到，因为被封在动态库里了。
+
+#endif

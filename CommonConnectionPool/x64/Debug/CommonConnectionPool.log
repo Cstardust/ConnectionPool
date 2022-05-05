@@ -1,3 +1,7 @@
-﻿  Connection.cpp
-E:\Code\VSmyCode\CommonConnectionPool\CommonConnectionPool\Connection.h(1): warning C4828: 文件包含在偏移 0x2a3 处开始的字符，该字符在当前源字符集中无效(代码页 936)。
+﻿  CommonConnectionPool.cpp
+E:\Code\VSmyCode\CommonConnectionPool\CommonConnectionPool\CommonConnectionPool.cpp(29): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\Code\VSmyCode\CommonConnectionPool\CommonConnectionPool\CommonConnectionPool.cpp(32): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\Code\VSmyCode\CommonConnectionPool\CommonConnectionPool\CommonConnectionPool.cpp(17): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  main.cpp
+  正在生成代码...
   CommonConnectionPool.vcxproj -> E:\Code\VSmyCode\CommonConnectionPool\x64\Debug\CommonConnectionPool.exe
