@@ -8,6 +8,7 @@ Connection::Connection()
 // 释放数据库连接资源
 Connection::~Connection()
 {
+	LOG("~Connection");
 	if (_conn != nullptr)
 		mysql_close(_conn);
 }

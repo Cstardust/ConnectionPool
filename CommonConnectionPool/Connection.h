@@ -27,8 +27,14 @@ public:
 	bool update(string sql);
 	// 查询操作 select
 	MYSQL_RES* query(string sql);
+	//  更新起始时间 ms为单位
+	void refreshAliveTime() { _alivetime = clock(); }
+	clock_t getAliveTime() {
+		return clock() -_alivetime;
+	}
 private:
-	MYSQL* _conn; // 表示和MySQL Server的一条连接
+	MYSQL* _conn;			//  表示和MySQL Server的一条连接
+	clock_t _alivetime;		//  记录进入空闲状态后的起始时间
 };
 
 
