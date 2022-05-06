@@ -32,6 +32,13 @@ public:
 
 	CommonConnectionPool(const CommonConnectionPool&) = delete;
 	CommonConnectionPool& operator=(const CommonConnectionPool&) = delete;
+	~CommonConnectionPool() {	//  释放资源
+		while (!_connectionQueue.empty()) {
+			Connection * p = _connectionQueue.front();
+			delete p;
+			_connectionQueue.pop();
+		}
+	}
 private:
 	//  构造函数私有
 	CommonConnectionPool();		
@@ -54,16 +61,15 @@ private:
 	string _dbname;				//  要访问的数据库名称
 	//  配置连接池
 	int _initSize;				//  连接池的初始连接量    
-	int _maxSize;				//  连接池最大连接量	       1024  queue里最多只能有1024个空闲连接
-	int _maxIdleTime;			//  连接池最大空闲时间			60s  (在queue里待的最长时间）超过则释放
-	int _connectionTimeout;		//  连接池获取连接的超时时间   100ms  超时后则放弃获取连接
-	int _maxConnectionTimeout;	//  连接超时时间 单位ms
+	int _maxSize;				//  连接池空闲连接的最大连接量	       1024个  queue里最多只能有1024个空闲连接。
+	int _maxIdleTime;			//  连接池中空闲连接的最大空闲时间	   60s  (在queue里待的最长时间）超过则释放。scan线程里用到。本压测代码不会触发。
+	int _connectionTimeout;		//  用户从连接池获取连接的超时时间     100ms  超时后则放弃获取连接。在getConnection线程里用到。本压测代码不会被触发。	
 
 	//  连接池自己的成员
 	queue<Connection*> _connectionQueue;	//  存储mysql连接的队列
 	volatile atomic_int _cntOfconns;	    //  连接数目
 	condition_variable _cv;					//  条件变量 （应用生产者消费者模型）
-	mutex _queueMtx;								//  锁
+	mutex _queueMtx;						//  锁
 };
 
 

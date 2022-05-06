@@ -1,8 +1,8 @@
 ﻿
 #include"CommonConnectionPool.h"
 
-atomic_int reuse_cnt = 0;
-atomic_int produce_cnt = 0;
+//  atomic_int reuse_cnt = 0;
+//  atomic_int produce_cnt = 0;
 
 CommonConnectionPool* CommonConnectionPool::getCommonConnectionPool()
 {
@@ -58,12 +58,13 @@ bool CommonConnectionPool::loadConfigFile()
 			_maxIdleTime = atoi(val.c_str());
 		}
 		else if (key == "maxConnectionTimeout") {
-			_maxConnectionTimeout = atoi(val.c_str());
+			_connectionTimeout = atoi(val.c_str());
 		}
 	}
 	return true;
 }
 
+//  初始化
 CommonConnectionPool::CommonConnectionPool()
 {
 	//  加载配置
@@ -83,6 +84,7 @@ CommonConnectionPool::CommonConnectionPool()
 	//  因为是成员函数，所以要传一个this
 	thread produce(&CommonConnectionPool::produceConnectionTask, this);
 	produce.detach();	//  线程分离 
+	//  扫描线程
 	thread scanner(&CommonConnectionPool::scannConnectionTask, this);
 	scanner.detach();	//  线程分离
 }
@@ -110,7 +112,7 @@ void CommonConnectionPool::produceConnectionTask()
 			_connectionQueue.push(pc);
 			pc->refreshAliveTime();
 		}
-		cout<<"produce_cnt "<<produce_cnt++<<endl;
+		//  cout<<"produce_cnt "<<produce_cnt++<<endl;
 		//  唤醒其他阻塞在条件变量上的线程（消费者线程）
 		_cv.notify_all();
 	}
@@ -137,9 +139,8 @@ shared_ptr<Connection> CommonConnectionPool::getConnection()
 	//  消费 返回给用户一个封装好的Connection智能指针。
 	//  shared_ptr智能指针析构时，connection就被close掉了
 	//  我们需要重定义shared_ptr释放资源的方式 使用lambda表达式
-	shared_ptr<Connection> sp(_connectionQueue.front(), [&](Connection *pcon)->void {
-		cout<<"reuse_cnt "<<++reuse_cnt << endl;
-		//  cout << "connection放回pool" << endl;
+	shared_ptr<Connection> sp(_connectionQueue.front(), [&](Connection* pcon)->void {
+		//  cout<<"reuse_cnt "<<++reuse_cnt << endl;
 			lock_guard<mutex> guard(_queueMtx);		//  线程安全
 			_connectionQueue.push(pcon);
 			pcon->refreshAliveTime();

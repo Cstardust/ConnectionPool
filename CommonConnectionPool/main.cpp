@@ -60,6 +60,7 @@ int main()
 		//  对connection进行操作
 		sp->connect("127.0.0.1", 13306, "root", "C361456shc", "chat");
 		sp->update(sql);
+		//  一轮结束之后，sp就会调用删除器，把这个Connection*放回pool的queue
 	}
 	clock_t ed = clock();
 	cout << (ed - bg) << "ms" << endl;

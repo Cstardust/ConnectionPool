@@ -1,6 +1,5 @@
-﻿  Connection.cpp
-  main.cpp
-E:\Code\VSmyCode\CommonConnectionPool\CommonConnectionPool\main.cpp(12): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-E:\Code\VSmyCode\CommonConnectionPool\CommonConnectionPool\main.cpp(55): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  正在生成代码...
+﻿  CommonConnectionPool.cpp
+E:\Code\VSmyCode\CommonConnectionPool\CommonConnectionPool\CommonConnectionPool.cpp(28): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\Code\VSmyCode\CommonConnectionPool\CommonConnectionPool\CommonConnectionPool.cpp(31): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\Code\VSmyCode\CommonConnectionPool\CommonConnectionPool\CommonConnectionPool.cpp(16): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   CommonConnectionPool.vcxproj -> E:\Code\VSmyCode\CommonConnectionPool\x64\Debug\CommonConnectionPool.exe
